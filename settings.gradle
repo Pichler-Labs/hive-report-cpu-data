@@ -1,0 +1,5 @@
+rootProject.name = 'filesfromyou'
+
+include 'server'
+include 'client'
+
