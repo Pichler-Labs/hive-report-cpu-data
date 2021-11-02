@@ -1,12 +1,12 @@
 package com.example.filesfromyou.api.dto;
 
-import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 
 import java.time.LocalDateTime;
 
 @Value
+//@Jacksonized
 public class CPUUsage {
 
     @NonNull
