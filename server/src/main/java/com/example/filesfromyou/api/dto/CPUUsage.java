@@ -6,7 +6,6 @@ import lombok.Value;
 import java.time.LocalDateTime;
 
 @Value
-//@Jacksonized
 public class CPUUsage {
 
     @NonNull
