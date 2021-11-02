@@ -8,7 +8,8 @@ import java.util.*;
 @Component
 public class CpuUsageModel {
 
-    private static HashMap<String, List<CPUUsage>> allCpuData; //persist in a storage
+    private static final int MAX_SIZE = 1000;
+    private static HashMap<String, List<CPUUsage>> allCpuData = new HashMap<>();
 
     public void put(final CPUUsage cpuUsage){
 
@@ -17,7 +18,16 @@ public class CpuUsageModel {
 
         hostCpuUsageList.add(cpuUsage);
 
-        //todo evict old data
+        //evict
+        if (hostCpuUsageList.size() > MAX_SIZE) {
+            hostCpuUsageList.remove(0);
+        }
+        if (allCpuData.keySet().size() > MAX_SIZE) {
+            allCpuData.remove(allCpuData.keySet().stream().findFirst().get());
+        }
+    }
 
+    public HashMap<String, List<CPUUsage>> getAllCpuData() {
+        return allCpuData;
     }
 }
