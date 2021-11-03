@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 class CpuUsageControllerTest {
+
     @Autowired
     private CpuUsageController controller;
     @Autowired
@@ -38,7 +39,9 @@ class CpuUsageControllerTest {
     }
 
     @Test
-    void showCPUUsage() {
+    void showCPUUsage() throws Exception {
+        final var requestBuilder = MockMvcRequestBuilders.get("/");
 
+        this.mockMvc.perform(requestBuilder).andExpect(status().isOk());
     }
 }

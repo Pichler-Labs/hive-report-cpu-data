@@ -1,9 +1,13 @@
 package com.example.filesfromyou.domain;
 
+import com.example.filesfromyou.AverageCpuUsage;
 import com.example.filesfromyou.api.dto.CPUUsage;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class CpuUsageModel {
@@ -29,5 +33,23 @@ public class CpuUsageModel {
 
     public HashMap<String, List<CPUUsage>> getAllCpuData() {
         return allCpuData;
+    }
+
+    public List<AverageCpuUsage> getAverages() {
+        final List<AverageCpuUsage> averages = new ArrayList<>();
+
+        getAllCpuData().entrySet().forEach(it -> {
+            String host = it.getKey();
+            List<CPUUsage> value = it.getValue();
+            int entriesCount = it.getValue().size();
+            double average = 0;
+            for (CPUUsage cpuUsage : it.getValue()) {
+                average += (double) cpuUsage.getCpuUsage() / entriesCount;
+            }
+            averages.add(new AverageCpuUsage(host, average));
+        });
+
+        Collections.sort(averages);
+        return averages;
     }
 }
