@@ -1,6 +1,6 @@
 package com.example.filesfromyou;
 
-public class AverageCpuUsage implements Comparable<AverageCpuUsage>{
+public class AverageCpuUsage implements Comparable <AverageCpuUsage> {
 
     private String host;
     private double average;
@@ -12,7 +12,7 @@ public class AverageCpuUsage implements Comparable<AverageCpuUsage>{
 
     @Override
     public int compareTo(AverageCpuUsage other) {
-        return (int) (average - other.average);
+        return (int) (other.average - average);
     }
 
     public String getHost() {

@@ -21,16 +21,20 @@ public class CpuUsageController {
 
     @PostMapping("/cpu-usage")
     public void postCPUUsage(@RequestBody final CPUUsage cpuUsage){
-        log.debug("New submission of CPU usage for host {}", cpuUsage);
+        log.info("New submission of CPU usage for host {}", cpuUsage);
         cpuUsageModel.put(cpuUsage);
     }
 
     @GetMapping("/")
-    public void showCPUUsage(){ //todo test
+    public String showCPUUsage(){ //todo test
+        StringBuilder response = new StringBuilder();
         List<AverageCpuUsage> averages = cpuUsageModel.getAverages();
         averages.forEach( it -> {
             final String formattedValue = new DecimalFormat("0.00").format(it.getAverage());
-            System.out.println(it.getHost() + " - " + formattedValue + "%");
+            response.append("<p>");
+            response.append(it.getHost() + "(version x)" + " - " + formattedValue + "%");
+            response.append("</p>\n");
         });
+        return response.toString();
     }
 }

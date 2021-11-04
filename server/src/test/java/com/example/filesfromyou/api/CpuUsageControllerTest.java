@@ -40,6 +40,15 @@ class CpuUsageControllerTest {
 
     @Test
     void showCPUUsage() throws Exception {
+        for (int i = 0; i < 100; i++) {
+
+            final var body = new CPUUsage("host" + i % 10, i, "1.0", LocalDateTime.now());
+            final var requestBuilder = MockMvcRequestBuilders.post("/cpu-usage")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(asJson(body));
+            this.mockMvc.perform(requestBuilder).andExpect(status().isOk());
+        }
+
         final var requestBuilder = MockMvcRequestBuilders.get("/");
 
         this.mockMvc.perform(requestBuilder).andExpect(status().isOk());

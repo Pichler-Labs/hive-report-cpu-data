@@ -16,7 +16,9 @@ public class CpuUsageModel {
     private static HashMap<String, List<CPUUsage>> allCpuData = new HashMap<>();
 
     public void put(final CPUUsage cpuUsage){
-
+        if(cpuUsage.getAverageCpuUsage() < 0)  {
+            throw new IllegalArgumentException("Averages must be equal or more than 0.");
+        }
         final var host = cpuUsage.getHost();
         final List<CPUUsage> hostCpuUsageList = allCpuData.computeIfAbsent(host, k -> new ArrayList());
 
@@ -39,15 +41,15 @@ public class CpuUsageModel {
         final List<AverageCpuUsage> averages = new ArrayList<>();
 
         getAllCpuData().entrySet().forEach(it -> {
-            String host = it.getKey();
-            List<CPUUsage> value = it.getValue();
-            int entriesCount = it.getValue().size();
+            final String host = it.getKey();
+            final int entriesCount = it.getValue().size();
+
             double average = 0;
             for (CPUUsage cpuUsage : it.getValue()) {
-                average += (double) cpuUsage.getCpuUsage() / entriesCount;
+                average += (double) cpuUsage.getAverageCpuUsage() / entriesCount;
             }
             averages.add(new AverageCpuUsage(host, average));
-        });
+        }); //todo show version
 
         Collections.sort(averages);
         return averages;

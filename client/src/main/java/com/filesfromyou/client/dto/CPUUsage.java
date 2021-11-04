@@ -1,4 +1,4 @@
-package com.example.filesfromyou.api.dto;
+package com.filesfromyou.client.dto;
 
 import lombok.NonNull;
 import lombok.Value;
