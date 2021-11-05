@@ -1,8 +1,7 @@
-package com.example.filesfromyou.api;
+package com.example.filesfromyou.controller;
 
-import com.example.filesfromyou.AverageCpuUsage;
-import com.example.filesfromyou.api.dto.CPUUsage;
-import com.example.filesfromyou.domain.CpuUsageModel;
+import com.example.filesfromyou.domain.CPUUsage;
+import com.example.filesfromyou.model.CpuUsageModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,13 +27,20 @@ public class CpuUsageController {
     @GetMapping("/")
     public String showCPUUsage(){ //todo test
         StringBuilder response = new StringBuilder();
-        List<AverageCpuUsage> averages = cpuUsageModel.getAverages();
+        response.append("<html>");
+        response.append("<head>");
+        response.append("<meta http-equiv=\"refresh\" content=\"1\">");
+        response.append("</head>");
+        response.append("<body>");
+        List<CPUUsage> averages = cpuUsageModel.getAverages();
         averages.forEach( it -> {
-            final String formattedValue = new DecimalFormat("0.00").format(it.getAverage());
+            final String formattedValue = new DecimalFormat("0.00").format(it.getAverageCpuUsage());
             response.append("<p>");
-            response.append(it.getHost() + "(version x)" + " - " + formattedValue + "%");
+            response.append(it.getHost() + " (version " + it.getVersion() + ")" + " - Average CPU usage " + formattedValue + "%");
             response.append("</p>\n");
         });
+        response.append("<body/>");
+        response.append("<html/>");
         return response.toString();
     }
 }

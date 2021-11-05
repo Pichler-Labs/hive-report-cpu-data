@@ -1,9 +1,9 @@
-package com.example.filesfromyou.domain;
+package com.example.filesfromyou.model;
 
-import com.example.filesfromyou.AverageCpuUsage;
-import com.example.filesfromyou.api.dto.CPUUsage;
+import com.example.filesfromyou.domain.CPUUsage;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,19 +37,23 @@ public class CpuUsageModel {
         return allCpuData;
     }
 
-    public List<AverageCpuUsage> getAverages() {
-        final List<AverageCpuUsage> averages = new ArrayList<>();
+    public List<CPUUsage> getAverages() {
+        final List<CPUUsage> averages = new ArrayList<>();
 
         getAllCpuData().entrySet().forEach(it -> {
             final String host = it.getKey();
             final int entriesCount = it.getValue().size();
+            String version = null;
 
             double average = 0;
             for (CPUUsage cpuUsage : it.getValue()) {
-                average += (double) cpuUsage.getAverageCpuUsage() / entriesCount;
+                average += cpuUsage.getAverageCpuUsage() / entriesCount;
+                if (version == null) {
+                    version = cpuUsage.getVersion();
+                }
             }
-            averages.add(new AverageCpuUsage(host, average));
-        }); //todo show version
+            averages.add(new CPUUsage(host, average, version, LocalDateTime.now()));
+        });
 
         Collections.sort(averages);
         return averages;

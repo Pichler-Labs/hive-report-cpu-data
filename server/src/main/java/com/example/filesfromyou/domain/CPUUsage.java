@@ -1,4 +1,4 @@
-package com.example.filesfromyou.api.dto;
+package com.example.filesfromyou.domain;
 
 import lombok.NonNull;
 import lombok.Value;
@@ -6,12 +6,12 @@ import lombok.Value;
 import java.time.LocalDateTime;
 
 @Value
-public class CPUUsage {
+public class CPUUsage  implements Comparable <CPUUsage> {
 
     @NonNull
     private String host;
 
-    private int averageCpuUsage;
+    private double averageCpuUsage;
 
     /**
      * FilesFromYou version.
@@ -21,5 +21,10 @@ public class CPUUsage {
 
     @NonNull
     private LocalDateTime timestamp;
+
+    @Override
+    public int compareTo(CPUUsage other) {
+        return (int) (other.averageCpuUsage - averageCpuUsage);
+    }
 
 }

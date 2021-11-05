@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 @EnableScheduling
 public class Main {
 
-    private String hostname = "host-" + (int) (Math.random()  * 100);
-    private String version = "1." + (int) (Math.random()  * 10);
+    private String hostname = "host-" + (int) (Math.random()  * 1000);
+    private String version = (int) (Math.random()  * 2) + "." + (int) (Math.random()  * 10);
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -32,7 +32,8 @@ public class Main {
 
     @Scheduled(fixedRate = 1000)
     public void sendCPUUsage() throws URISyntaxException, IOException, InterruptedException {
-        final CPUUsage cpuUsage = new CPUUsage(hostname, (int) (Math.random() * 100), version, LocalDateTime.now());
+        final double averageCpuUsage = (int) (Math.random() * 100) + (Double.valueOf(version) * 2); //simulating a problem with: higher the version, higher the cpu usage
+        final CPUUsage cpuUsage = new CPUUsage(hostname, averageCpuUsage, version, LocalDateTime.now());
 
         String body = asJson(cpuUsage);
         HttpRequest request = HttpRequest.newBuilder()

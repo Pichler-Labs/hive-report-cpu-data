@@ -1,6 +1,6 @@
-package com.example.filesfromyou.api;
+package com.example.filesfromyou.controller;
 
-import com.example.filesfromyou.api.dto.CPUUsage;
+import com.example.filesfromyou.domain.CPUUsage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

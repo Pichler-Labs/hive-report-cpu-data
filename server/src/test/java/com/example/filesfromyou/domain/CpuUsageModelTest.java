@@ -1,6 +1,6 @@
 package com.example.filesfromyou.domain;
 
-import com.example.filesfromyou.api.dto.CPUUsage;
+import com.example.filesfromyou.model.CpuUsageModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +67,8 @@ class CpuUsageModelTest {
         cpuUsageModel.put(usage4);
 
         assertEquals(2, cpuUsageModel.getAverages().size());
-        assertEquals((100 + 100 + 50) / 3, (int) cpuUsageModel.getAverages().get(0).getAverage());
-        assertEquals(50, (int) cpuUsageModel.getAverages().get(1).getAverage());
+        assertEquals((100 + 100 + 50) / 3, (int) cpuUsageModel.getAverages().get(0).getAverageCpuUsage());
+        assertEquals(50, (int) cpuUsageModel.getAverages().get(1).getAverageCpuUsage());
 
     }
 }

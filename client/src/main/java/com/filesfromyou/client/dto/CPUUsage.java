@@ -11,7 +11,7 @@ public class CPUUsage {
     @NonNull
     private String host;
 
-    private int averageCpuUsage;
+    private double averageCpuUsage;
 
     /**
      * FilesFromYou version.
