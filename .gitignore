@@ -26,3 +26,5 @@ hs_err_pid*
 .idea/**
 server/build/**
 client/build/**
+server/out/**
+client/out/**
